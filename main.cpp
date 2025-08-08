@@ -37,10 +37,10 @@ void Register(Student a[], int n){
 void ShowDetails(Student a[], int n){
     for(int i = 0; i<n; i++){
         a[i].Details();
-        cout << "--------------------------" << endl;
+        cout << "---------------------------------------" << endl;
     }
 }
-void *Search(Student a[], int n, int idd){
+void* Search(Student a[], int n, int idd){
     Student *ptr = NULL;
     for(int i = 0; i<n; i++){
         if(a[i].getid() == idd){
@@ -53,16 +53,16 @@ void Sort(Student a[], int n){
     Student temp;
     for(int i = 0; i<n-1; i++){
         for(int j= i+1; j<n; j++){
-            if(a[i].getid() < a[j].getid()){
+            if(a[i].getid() > a[j].getid()){
                 temp = a[i];
-                a[i] = a[i];
+                a[i] = a[j];
                 a[j] = temp;
             }
         }
     }
 }
 int main(){
-    Student st[100], *ptr;
+    Student st[20], *ptr;
     int n;
     cout << "Enter the number of students to register: ";
     cin>> n;
@@ -74,16 +74,20 @@ int main(){
     int idd, up;
     cout << "Enter ID to search: ";
     cin >> idd;
-    Search(st, n, idd);
+    ptr = (Student*)Search(st, n, idd);
     if(ptr == NULL){
-        cout << "Student With ID "<<idd<<"Not Found!!!!"<<endl;
+        cout << "Student With ID "<<idd<<" Not Found!!!!"<<endl;
     }else{
-        cout << "Update Student Details"; cin>> up;
-        ptr->setid(up);
+        cout << "Please Enter New Student info Details :" << endl;
+        ptr->Input();
     }
+    cout << "=====Details of Student After Update=====" << endl;
+    cout << "ID\tName\tAge\tGender\tMajor" << endl;
+    ShowDetails(st, n);
+    cout << "Sorting Students by ID in Descending Order" << endl;   
     Sort(st, n);
     cout <<"=====Detils of student after Sortting =====" << endl;
-    cout << "ID\tName\t\tAge\tGender\tMajor" << endl;
+    cout << "ID\tName\tAge\tGender\tMajor" << endl;
     ShowDetails(st, n);
     return 0;
 }    
